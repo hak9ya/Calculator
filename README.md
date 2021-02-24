@@ -9,6 +9,7 @@
 > 2. JAVA swing, awt
 
 ## 프로젝트 주요 기능
+![화면 캡처 2021-02-24 113146](https://user-images.githubusercontent.com/63631952/108938906-37e62880-7694-11eb-8fc6-c6fdcfd82653.png)
 
 
 - 전반적인 게임로직
