@@ -20,7 +20,7 @@ public class Calculator extends JFrame {
 	private ArrayList<String> arrList = new ArrayList<String>();
 	private String value = "";
 	private String prev_operation = "";
-	private String point_operation = "";
+	private int pointCheck = 0;
 	
 	public Calculator() {
 		setLayout(null);
@@ -67,17 +67,23 @@ public class Calculator extends JFrame {
 	class PadActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			String operation = e.getActionCommand();			
+			
 			if(operation.equals("C") || operation.equals("CE")) {
 				textField.setText("");
+				pointCheck = 0;
 			}else if(operation.equals(".") && textField.getText().equals("")) {
 				textField.getText();
-			}else if(textField.getText().indexOf(".") != -1)  {
-				return;
+			}else if(operation.equals(".") && pointCheck == 0)  {
+				textField.setText(textField.getText() + e.getActionCommand());
+				pointCheck = 1;
+			}else if(operation.equals(".") && pointCheck == 1) {
+				textField.getText();
 			}
 			else if(operation.equals("=")) {
 				String result = Double.toString(calculate(textField.getText()));
 				textField.setText("" + result);
-				value = "";				
+				value = "";
+				pointCheck = 0;
 			}else if(operation.equals("¡ç")) {
 				setBackSpace(getBackSpace().substring(0, getBackSpace().length() - 1));
 			}else if(operation.equals("+") || operation.equals("-") || operation.equals("¡¿") || operation.equals("¡À")) {				
@@ -85,6 +91,7 @@ public class Calculator extends JFrame {
 					textField.setText(textField.getText() + e.getActionCommand());
 				}else if(!textField.getText().equals("") && !prev_operation.equals("+") && !prev_operation.equals("-") && !prev_operation.equals("¡¿") && !prev_operation.equals("¡À")) {
 					textField.setText(textField.getText() + e.getActionCommand());
+					pointCheck = 0;
 				}
 			} else {
 				textField.setText(textField.getText() + e.getActionCommand());
