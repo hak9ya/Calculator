@@ -20,6 +20,7 @@ public class Calculator extends JFrame {
 	private ArrayList<String> arrList = new ArrayList<String>();
 	private String value = "";
 	private String prev_operation = "";
+	private String point_operation = "";
 	
 	public Calculator() {
 		setLayout(null);
@@ -65,11 +66,15 @@ public class Calculator extends JFrame {
 	
 	class PadActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			String operation = e.getActionCommand();
-			
+			String operation = e.getActionCommand();			
 			if(operation.equals("C") || operation.equals("CE")) {
 				textField.setText("");
-			}else if(operation.equals("=")) {
+			}else if(operation.equals(".") && textField.getText().equals("")) {
+				textField.getText();
+			}else if(textField.getText().indexOf(".") != -1)  {
+				return;
+			}
+			else if(operation.equals("=")) {
 				String result = Double.toString(calculate(textField.getText()));
 				textField.setText("" + result);
 				value = "";				
@@ -84,9 +89,12 @@ public class Calculator extends JFrame {
 			} else {
 				textField.setText(textField.getText() + e.getActionCommand());
 			}
-			prev_operation = e.getActionCommand(); 
+			prev_operation = e.getActionCommand();
+
+			}
+
 		}
-	}
+	
 	
 	private void textSave(String inputText) {
 		arrList.clear();
